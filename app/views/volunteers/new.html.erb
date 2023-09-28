@@ -1,0 +1,11 @@
+<%= form_with scope: :volunteer, url: volunteers_path do |f| %>
+<!-- If this form survived even to code review, this list of attrs would be stored somewhere else and simply referenced here. Likely it would be
+stuck into a helper and referenced also by the strong_params of the controller, or there would be a Volunteer model with at least these attributes. -->
+  <% %i[first_name last_name phone_number insurance_carrier medical_record_id].each do |param| %>
+    <p>
+      <%= f.label param.to_s.titleize %>
+      <%= f.text_field param %>
+    </p>
+  <% end %>
+  <%= f.submit 'Sign me up!' %>
+<% end %>

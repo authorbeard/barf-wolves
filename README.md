@@ -1,5 +1,5 @@
 # barf-wolves
-An app for logging volunteer werewolves for a new drug trial.
+An app for logging volunteer werewolves for a new drug trial for Barfemfup.
 
 
 ### Basic description:
@@ -22,3 +22,32 @@ First Name, Last Name, Phone Number, Insurance Carrier, and Medical Record ID.
   - SQL should be executable as-is
 - App displays thank you page on submission 
   - No validations mentioned; will display this regardless of any errors, etc.
+
+### Requirements and installation
+- Ruby 3.2.0
+- Rails 7.0.8
+
+A quick `bundle install` and `bundle exec rails s` is all you need. You can visit `/volunteers` or just `localhost:3000`, since root points to `volunteers`. The rest is fairly self-explanatory.
+
+
+### Other notes:
+- did not have time to set up a testing suite, thought that would have been, in all likelihood, just a couple of request specs to validate:
+  - That `File` receives a write call of some sort
+  - That `File` receives write with properly-formatted SQL
+    - eventually, The parsing, SQL assembly and writing would be handled by at least one other class, otherwise I wouldn't get into testing behavior in private methods
+  - That the thank-you message is rendered
+  - That the thank-you message is rendered even when there's an error
+- The above describes a bit about how I approach testing, which I've only ever done in RSpec, but that short list above would get me started.
+- there is an existing `output.sql` showing the output of submitting the form with these values:
+```
+  first_name: this,
+  last_name: effinguy,
+  phone_number: 1900-mix-a-lot,
+  insurance_carrier: Frodus Conglomerate International,
+  medical_record_id: ''
+```
+
+### Resources used:
+- https://ruby-doc.org/core-3.0.0/File.html (syntax check; couldn't remember exactly what a+t meant, wanted to confirm it would append)
+- https://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html (another syntax thing; haven't written a Rails form for awhile and couldn't remember which worked best without an ActiveRecord model)
+- https://ruby-doc.org/core-3.0.0/Hash.html#method-i-transform_values (thought that Ruby 3 had changed something on me; did not realize I was calling the wrong method. I had been calling `update_values` instead of `transform_values` and had to go look it up, then pause for awhile and bang my head against the wall)
